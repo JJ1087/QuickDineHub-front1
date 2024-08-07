@@ -7,12 +7,19 @@ import { Router } from '@angular/router';
 import { MensajeComponent } from '../../../compartido/components/mensaje/mensaje.component';
 import { AuthrestauranteService } from '../../services/authrestaurante.service';
 
+import { AfterViewInit, Inject, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+
 @Component({
   selector: 'app-registro-restaurante',
   templateUrl: './registro-restaurante.component.html',
   styleUrls: ['./registro-restaurante.component.css']
 })
 export class RegistroRestauranteComponent implements OnInit {
+
+  private map!: google.maps.Map;
+  private marker!: google.maps.Marker;
+  private geocoder!: google.maps.Geocoder;
 
   // Atributos para mostrar las imágenes previas
   public prevMenu: string = '';
@@ -54,7 +61,10 @@ export class RegistroRestauranteComponent implements OnInit {
     public dialog: MatDialog,
     private authRestauranteService: AuthrestauranteService,
  
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private cdr: ChangeDetectorRef,
   ) {
+
     // Inicialización de formularios
     this.registroForm = this.fb.group({
       nombreRestaurante: ['', Validators.required],
@@ -96,6 +106,91 @@ export class RegistroRestauranteComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  ngAfterViewInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadGoogleMapsAPI();
+    }
+  }
+
+  loadGoogleMapsAPI() {
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDTeWeCxH4zCEyvVPD8_t1Rg8lUHlVGSj0&libraries=places`;
+    document.body.appendChild(script);
+    script.onload = () => {
+      this.initializeMap();
+      this.initializeAutocomplete();
+    };
+
+    script.onerror = () => {
+      console.error('Failed to load the Google Maps API script.');
+    };
+  }
+
+  initializeMap() {
+    const mapElement = document.getElementById('map') as HTMLElement;
+    this.map = new google.maps.Map(mapElement, {
+      center: { lat: -33.8688, lng: 151.2195 }, // Coordenadas de ejemplo, personalizables
+      zoom: 13,
+    });
+
+    this.marker = new google.maps.Marker({
+      map: this.map,
+      visible: false,
+    });
+
+    this.geocoder = new google.maps.Geocoder();
+
+    this.map.addListener('click', (event: google.maps.MapMouseEvent) => {
+      if (event.latLng) {
+        this.geocodeLatLng(event.latLng);
+      }
+    });
+  }
+
+  initializeAutocomplete() {
+    const input = document.getElementById('direccionRestaurante') as HTMLInputElement;
+    const autocomplete = new google.maps.places.Autocomplete(input);
+
+    autocomplete.addListener('place_changed', () => {
+      const place = autocomplete.getPlace();
+      if (!place.geometry || !place.geometry.location) {
+        window.alert('No details available for input: ' + place.name);
+        return;
+      }
+
+      if (place.geometry.viewport) {
+        this.map.fitBounds(place.geometry.viewport);
+      } else {
+        this.map.setCenter(place.geometry.location);
+        this.map.setZoom(17);
+      }
+
+      this.marker.setPosition(place.geometry.location);
+      this.marker.setVisible(true);
+
+      // Asigna el valor seleccionado al campo de dirección del restaurante
+      this.registroForm.get('direccionRestaurante')?.setValue(place.formatted_address || place.name || '');
+      this.cdr.detectChanges();
+    });
+  }
+
+  geocodeLatLng(latLng: google.maps.LatLng | google.maps.LatLngLiteral) {
+    this.geocoder.geocode({ location: latLng }, (results, status) => {
+      if (status === 'OK' && results) {
+        this.map.setCenter(latLng);
+        this.map.setZoom(17);
+        this.marker.setPosition(latLng);
+        this.marker.setVisible(true);
+
+        // Asigna el valor geocodificado al campo de dirección del restaurante
+        this.registroForm.get('direccionRestaurante')?.setValue(results[0].formatted_address);
+        this.cdr.detectChanges();
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
+  }
 
   handleCaptchaChange(value: string | null) {
     this.isCaptchaVerified = value !== null;

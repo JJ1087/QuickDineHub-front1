@@ -90,6 +90,12 @@ import { EditPerfilRepartidorComponent } from './repartidor/components/edit-perf
 // Asegúrate de importar PayPalModule
 import { CommonModule } from '@angular/common';
 import { PaypalButtonComponent } from './compartido/components/paypal-button/paypal-button.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { AddressAutocompleteComponent } from './cliente/components/address-autocomplete/address-autocomplete.component';
+import { MapaDireccionComponent } from './cliente/components/mapa-direccion/mapa-direccion.component';
+import { DireccionPartesComponent } from './cliente/components/direccion-partes/direccion-partes.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -160,6 +166,9 @@ import { PaypalButtonComponent } from './compartido/components/paypal-button/pay
     EditPerfilRestauranteComponent,
     EditPerfilRepartidorComponent,
     PaypalButtonComponent,
+    AddressAutocompleteComponent,
+    MapaDireccionComponent,
+    DireccionPartesComponent,
 
   ],
   imports: [
@@ -186,6 +195,8 @@ import { PaypalButtonComponent } from './compartido/components/paypal-button/pay
     MatFormFieldModule,
     PasswordModule,
     CommonModule,
+    MatAutocompleteModule,
+
   ],
   providers: [
     

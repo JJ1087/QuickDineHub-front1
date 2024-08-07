@@ -14,6 +14,9 @@ import { RestaurantesClienteComponent } from '../components/restaurantes-cliente
 import { InfoRestauranteComponent } from '../components/info-restaurante/info-restaurante.component';
 import { EditPerfilClienteComponent } from '../components/edit-perfil-cliente/edit-perfil-cliente.component';
 import { CliOfertasComponent } from '../components/cli-ofertas/cli-ofertas.component';
+import { AddressAutocompleteComponent } from '../components/address-autocomplete/address-autocomplete.component';
+import { MapaDireccionComponent } from '../components/mapa-direccion/mapa-direccion.component';
+import { DireccionPartesComponent } from '../components/direccion-partes/direccion-partes.component';
 
 
 const routes: Routes = [
@@ -30,7 +33,9 @@ const routes: Routes = [
   { path: 'info-restaurante/:id', component: InfoRestauranteComponent },
   { path: 'cli-ofertas', component: CliOfertasComponent },
   { path: 'edit-perfil-cliente', component: EditPerfilClienteComponent },
-
+  { path: 'address-autocomplete', component: AddressAutocompleteComponent },
+  { path: 'mapa-direccion', component: MapaDireccionComponent },
+  { path: 'direccion-partes', component: DireccionPartesComponent },
 
 ];
 

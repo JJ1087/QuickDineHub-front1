@@ -1,0 +1,21 @@
+/* direccion-partes.component.css */
+.direccion-partes-container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#map {
+  height: 500px;
+}

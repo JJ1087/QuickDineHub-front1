@@ -1,0 +1,17 @@
+/* src/app/address-autocomplete/address-autocomplete.component.css */
+#map {
+    height: 100%;
+  }
+  
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #autocomplete-input {
+    width: 100%;
+    padding: 10px;
+    margin: 20px 0;
+  }
+  

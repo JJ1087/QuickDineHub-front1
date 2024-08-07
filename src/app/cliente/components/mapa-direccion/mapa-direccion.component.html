@@ -1,0 +1,11 @@
+<!-- mapa-direccion.component.html -->
+<div>
+    <input id="origin-input" type="text" placeholder="Enter your current location" [(ngModel)]="originAddress" />
+    <input id="destination-input" type="text" placeholder="Enter destination" [(ngModel)]="destinationAddress" />
+    <button (click)="calculateRoute()">Get Directions</button>
+  </div>
+  
+  <div id="map" style="height: 500px;"></div>
+  
+  <div id="directions-panel" style="height: 500px; overflow: auto;"></div>
+  

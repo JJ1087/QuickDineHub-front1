@@ -75,11 +75,13 @@
         <!-- Dirección del restaurante -->
         <div class="form-group">
             <label for="direccionRestaurante">Dirección del Restaurante:</label>
-            <input type="text" id="direccionRestaurante" formControlName="direccionRestaurante">
+            <input type="text" id="direccionRestaurante" formControlName="direccionRestaurante" placeholder="Escribe una dirección">
             <div *ngIf="registroForm.get('direccionRestaurante')?.invalid && (registroForm.get('direccionRestaurante')?.dirty || registroForm.get('direccionRestaurante')?.touched)">
                 <small *ngIf="registroForm.get('direccionRestaurante')?.errors?.['required']">Dirección del Restaurante es obligatoria</small>
             </div>
         </div>
+
+        <div id="map" style="height: 500px;"></div>
 
         <!-- contraseña -->
         <div class="form-group">

@@ -42,16 +42,18 @@
             </div>
         </div>
         
-        <!-- Ciudad -->
-        <div class="form-group">
-            <label for="ciudad">Ciudad</label>
-            <input type="text" id="ciudad" formControlName="ciudad" required>
-            <div *ngIf="registroForm.get('ciudad')?.invalid && (registroForm.get('ciudad')?.dirty || registroForm.get('ciudad')?.touched)">
-                <ng-container *ngIf="registroForm.get('ciudad')?.errors as ciudadErrors">
-                    <small class="color-alerta color-rojo" *ngIf="ciudadErrors['required']">Completa el campo Ciudad</small>
-                </ng-container>
-            </div>  
-        </div>
+            <!-- Ciudad -->
+    <div class="form-group">
+        <label for="ciudad">Dirección</label>
+        <input type="text" id="ciudad" formControlName="ciudad" required placeholder="Escribe una dirección">
+        <div *ngIf="registroForm.get('ciudad')?.invalid && (registroForm.get('ciudad')?.dirty || registroForm.get('ciudad')?.touched)">
+            <ng-container *ngIf="registroForm.get('ciudad')?.errors as ciudadErrors">
+                <small class="color-alerta color-rojo" *ngIf="ciudadErrors['required']">Completa el campo Ciudad</small>
+            </ng-container>
+        </div>  
+    </div>
+    
+    <div id="map" style="height: 500px;"></div>
         
         <!-- Número de teléfono -->
         <div class="form-group">

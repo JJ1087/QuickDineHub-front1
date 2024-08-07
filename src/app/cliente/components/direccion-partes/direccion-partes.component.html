@@ -1,0 +1,42 @@
+<!-- direccion-partes.component.html -->
+<div class="direccion-partes-container">
+    <h2>Dirección por Partes</h2>
+  
+    <!-- Dirección Completa -->
+    <div class="form-group">
+      <label for="direccionCompleta">Dirección Completa:</label>
+      <input
+        type="text"
+        id="direccionCompleta"
+        placeholder="Escribe una dirección"
+        [(ngModel)]="direccionCompleta"
+        (ngModelChange)="onDireccionChange($event)"
+        [formControl]="direccionControl"
+      />
+    </div>
+  
+    <!-- Colonia -->
+    <div class="form-group">
+      <label for="colonia">Colonia:</label>
+      <input
+        type="text"
+        id="colonia"
+        [value]="colonia"
+        readonly
+      />
+    </div>
+  
+    <!-- Calles -->
+    <div class="form-group">
+      <label for="calles">Calles:</label>
+      <input
+        type="text"
+        id="calles"
+        [value]="calles"
+        readonly
+      />
+    </div>
+  
+    <div id="map" style="height: 500px;"></div>
+  </div>
+  
